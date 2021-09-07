@@ -7,7 +7,7 @@ import pandas as pd
 
 def create_header(token):
     header = {
-        'Authorization': 'Bearer ' + token,
+        'Authorization': f'Bearer {token}',
         'Content-Type': 'application/json'
     }
     return header
