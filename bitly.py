@@ -64,13 +64,14 @@ def run_bitly(link, token):
             short_url = shorten_link(link, token)
             print(f'Отлично! Вы получили короткую ссылку: {short_url}')
         except requests.exceptions.HTTPError:
-            print('Невозможно обработать вашу ссылку, '
-                   'возможно вы забыли указать http:// в начале ')
+            print('Невозможно обработать вашу ссылку,'
+                  ' возможно вы забыли указать http:// в начале')
     else:
         try:
             total_clicks = count_clicks(link, token)
             print(f'Общее количество кликов по ссылке: {total_clicks[0]}')
-            download_data_flag = input('Выгрузить статистику по кликам в файл? (Введите Y для получения): ')
+            download_data_flag = input('Выгрузить статистику по кликам в файл?'
+                                       ' (Введите Y для получения): ')
             if download_data_flag == 'Y':
                 total_clicks[1].to_excel('bitly_stats.xlsx', index=False)
         except requests.exceptions.HTTPError:
