@@ -1,8 +1,8 @@
+import os
+
+from dotenv import load_dotenv
 import requests
 from urllib.parse import urlparse
-from dotenv import load_dotenv
-import os
-import pandas as pd
 
 
 def create_header(token):
@@ -46,7 +46,8 @@ def count_clicks(link, token):
     header = create_header(token)
     bitly_api_url = 'https://api-ssl.bitly.com/v4/'
     parse = urlparse(link)
-    clicks_url = f'{bitly_api_url}bitlinks/{parse.netloc + parse.path}/clicks/summary'
+    clicks_url = f'{bitly_api_url}bitlinks/' \
+                 f'{parse.netloc + parse.path}/clicks/summary'
     params = {
         'unit': 'day',
         'units': -1,
