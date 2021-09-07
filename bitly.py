@@ -46,7 +46,7 @@ def count_clicks(link, token):
     header = create_header(token)
     bitly_api_url = 'https://api-ssl.bitly.com/v4/'
     parse = urlparse(link)
-    clicks_url = f'{bitly_api_url}bitlinks/{parse.netloc + parse.path}/clicks/'
+    clicks_url = f'{bitly_api_url}bitlinks/{parse.netloc + parse.path}/clicks/summary'
     params = {
         'unit': 'day',
         'units': -1,
@@ -55,10 +55,7 @@ def count_clicks(link, token):
     response = requests.get(clicks_url, params=params, headers=header)
     response.raise_for_status()
     response = response.json()
-    clicks_data = pd.DataFrame(response['link_clicks'])
-    clicks_data['date'] = pd.to_datetime(clicks_data['date']).\
-        dt.strftime('%Y-%m-%d')
-    return clicks_data['clicks'].sum(), clicks_data
+    return response['total_clicks']
 
 
 def run_bitly(link, token):
@@ -72,7 +69,7 @@ def run_bitly(link, token):
     else:
         try:
             total_clicks = count_clicks(link, token)
-            print(f'Общее количество кликов по ссылке: {total_clicks[0]}')
+            print(f'Общее количество кликов по ссылке: {total_clicks}')
             download_data_flag = input('Выгрузить статистику по кликам в файл?'
                                        ' (Введите Y для получения): ')
             if download_data_flag == 'Y':
