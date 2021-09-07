@@ -48,6 +48,7 @@ def count_clicks(link, token):
     parse = urlparse(link)
     clicks_url = f'{bitly_api_url}bitlinks/' \
                  f'{parse.netloc + parse.path}/clicks/summary'
+
     params = {
         'unit': 'day',
         'units': -1,
