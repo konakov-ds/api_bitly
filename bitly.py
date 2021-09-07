@@ -14,6 +14,7 @@ def create_header(token):
 
 
 def is_bitlink(link, token):
+    bitly_api_url = 'https://api-ssl.bitly.com/v4/'
     parse = urlparse(link)
     header = create_header(token)
     link_to_check = f'{bitly_api_url}bitlinks/{parse.netloc + parse.path}'
@@ -22,7 +23,7 @@ def is_bitlink(link, token):
 
 
 def shorten_link(url, token):
-    bitlink_url = f'{bitly_api_url}bitlinks'
+    bitlink_url = 'https://api-ssl.bitly.com/v4/bitlinks'
     header = create_header(token)
     request_body = {
         'long_url': url,
@@ -43,6 +44,7 @@ def shorten_link(url, token):
 
 def count_clicks(link, token):
     header = create_header(token)
+    bitly_api_url = 'https://api-ssl.bitly.com/v4/'
     parse = urlparse(link)
     clicks_url = f'{bitly_api_url}bitlinks/{parse.netloc + parse.path}/clicks/'
     params = {
@@ -54,7 +56,8 @@ def count_clicks(link, token):
     response.raise_for_status()
     response = response.json()
     clicks_data = pd.DataFrame(response['link_clicks'])
-    clicks_data['date'] = pd.to_datetime(clicks_data['date']).dt.strftime('%Y-%m-%d')
+    clicks_data['date'] = pd.to_datetime(clicks_data['date']).\
+        dt.strftime('%Y-%m-%d')
     return clicks_data['clicks'].sum(), clicks_data
 
 
@@ -80,8 +83,6 @@ def run_bitly(link, token):
 
 if __name__ == "__main__":
     load_dotenv()
-    bitly_api_url = os.getenv('BITLY_API_URL')
     token = os.getenv('BITLY_TOKEN')
     link = input('Введите ссылку: ')
     run_bitly(link, token)
-
