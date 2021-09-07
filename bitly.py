@@ -58,7 +58,10 @@ def count_clicks(link, token):
     return response['total_clicks']
 
 
-def run_bitly(link, token):
+def main():
+    load_dotenv()
+    token = os.getenv('BITLY_TOKEN')
+    link = input('Введите ссылку: ')
     if not is_bitlink(link, token):
         try:
             short_url = shorten_link(link, token)
@@ -70,16 +73,10 @@ def run_bitly(link, token):
         try:
             total_clicks = count_clicks(link, token)
             print(f'Общее количество кликов по ссылке: {total_clicks}')
-            download_data_flag = input('Выгрузить статистику по кликам в файл?'
-                                       ' (Введите Y для получения): ')
-            if download_data_flag == 'Y':
-                total_clicks[1].to_excel('bitly_stats.xlsx', index=False)
+
         except requests.exceptions.HTTPError:
             print('Что-то пошло не так')
 
 
 if __name__ == "__main__":
-    load_dotenv()
-    token = os.getenv('BITLY_TOKEN')
-    link = input('Введите ссылку: ')
-    run_bitly(link, token)
+    main()
