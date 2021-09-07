@@ -79,5 +79,5 @@ def main():
             print('Что-то пошло не так')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
