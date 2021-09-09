@@ -39,7 +39,7 @@ def shorten_link(url, token):
     response.raise_for_status()
     response = response.json()
 
-    return response["id"]
+    return response['id']
 
 
 def count_clicks(link, token):
