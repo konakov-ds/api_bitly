@@ -1,8 +1,8 @@
 import os
-
-from dotenv import load_dotenv
-import requests
 from urllib.parse import urlparse
+
+import requests
+from dotenv import load_dotenv
 
 
 def create_header(token):
@@ -17,7 +17,7 @@ def is_bitlink(link, token):
     bitly_api_url = 'https://api-ssl.bitly.com/v4/'
     parse = urlparse(link)
     header = create_header(token)
-    link_to_check = f'{bitly_api_url}bitlinks/{parse.netloc + parse.path}'
+    link_to_check = f'{bitly_api_url}bitlinks/{parse.netloc}{parse.path}'
     response = requests.get(link_to_check, headers=header)
     return response.ok
 
@@ -47,7 +47,7 @@ def count_clicks(link, token):
     bitly_api_url = 'https://api-ssl.bitly.com/v4/'
     parse = urlparse(link)
     clicks_url = f'{bitly_api_url}bitlinks/' \
-                 f'{parse.netloc + parse.path}/clicks/summary'
+                 f'{parse.netloc}{parse.path}/clicks/summary'
 
     params = {
         'unit': 'day',
