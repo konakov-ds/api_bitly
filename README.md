@@ -3,6 +3,4 @@
 1.  Зарегистрироваться на сервисе и сгенерировать [токен](https://dev.bitly.com/)
 2. Установить зависимости (*pip install -r requirements.txt*)
 3. Задать значение BITLY_TOKEN = ваш токен в файле .env  
-4. Запустить скрипт (*python bitly.py*)
-
-
+4. Запустить скрипт (*python bitly.py your_url*)

@@ -1,8 +1,15 @@
+import argparse
 import os
 from urllib.parse import urlparse
 
 import requests
 from dotenv import load_dotenv
+
+
+parser = argparse.ArgumentParser(
+    description='Принимает ссылку для сервиса bitly'
+)
+parser.add_argument('url', help='Введите ссылку')
 
 
 def create_header(token):
@@ -63,7 +70,8 @@ def count_clicks(link, token):
 def main():
     load_dotenv()
     token = os.getenv('BITLY_TOKEN')
-    link = input('Введите ссылку: ')
+    args = parser.parse_args()
+    link = args.url
     if not is_bitlink(link, token):
         try:
             short_url = shorten_link(link, token)
