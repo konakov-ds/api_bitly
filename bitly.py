@@ -6,12 +6,6 @@ import requests
 from dotenv import load_dotenv
 
 
-parser = argparse.ArgumentParser(
-    description='Принимает ссылку для сервиса bitly'
-)
-parser.add_argument('url', help='Введите ссылку')
-
-
 def create_header(token):
     header = {
         'Authorization': f'Bearer {token}',
@@ -70,6 +64,10 @@ def count_clicks(link, token):
 def main():
     load_dotenv()
     token = os.getenv('BITLY_TOKEN')
+    parser = argparse.ArgumentParser(
+        description='Принимает ссылку для сервиса bitly'
+    )
+    parser.add_argument('url', help='Введите ссылку')
     args = parser.parse_args()
     link = args.url
     if not is_bitlink(link, token):
