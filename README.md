@@ -8,14 +8,20 @@
 
 - Создайте `.env` файл рядом с  `main.py`
 
-    ```touch .env```
+    ```
+    touch .env
+    ```
 
 - Получить токен можно по ссылке [токен](https://dev.bitly.com/)
 ###  Зависимости
 - Установить зависимости
 
-   ```pip install -r requirements.txt```
+   ```
+   pip install -r requirements.txt
+  ```
 ###  Запуск скрипта
 - Запустить скрипт можно командой
   
-  ```python bitly.py your_url```
+  ```
+  python bitly.py your_url
+  ```
